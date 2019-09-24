@@ -10,21 +10,19 @@ RUN git clone https://github.com/devttys0/binwalk &&\
     git clone https://github.com/mirror/firmware-mod-kit &&\
     git clone https://github.com/domino-team/openwrt-cc
 
-RUN wget https://www.wifipineapple.com/downloads/nano/latest -O upgrade-"$upstream_version".bin
+RUN wget https://www.wifipineapple.com/downloads/nano/latest -O upgrade.bin
 
 # install binwalk
 RUN cd binwalk && ./deps.sh --yes
 RUN cd binwalk && python setup.py install
 RUN echo "BINWALK=binwalk" >> firmware-mod-kit/shared-ng.inc
 
-RUN touch .upstream_version &&\
-    mkdir firmware_images
+RUN mkdir firmware_images
 
 # extract firmware
 RUN cd firmware-mod-kit &&\
-    ./extract-firmware.sh "$top"/upgrade-"$upstream_version".bin
-RUN echo "$upstream_version" > .upstream_version &&\
-    mkdir openwrt-cc/files &&\
+    ./extract-firmware.sh "$top"/upgrade.bin
+RUN mkdir openwrt-cc/files &&\
     cp -r firmware-mod-kit/fmk/rootfs/* openwrt-cc/files/ &&\
     rm -rf openwrt-cc/files/lib/modules/* &&\
     rm -rf openwrt-cc/files/sbin/modprobe

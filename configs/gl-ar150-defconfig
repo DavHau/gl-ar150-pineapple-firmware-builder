@@ -111,10 +111,10 @@ CONFIG_TARGET_ar71xx_generic=y
 # CONFIG_TARGET_ar71xx_generic_EPG5000 is not set
 # CONFIG_TARGET_ar71xx_generic_EWDORIN is not set
 # CONFIG_TARGET_ar71xx_generic_GLINET is not set
-CONFIG_TARGET_ar71xx_generic_GL-AR150=y
+# CONFIG_TARGET_ar71xx_generic_GL-AR150=y
 # CONFIG_TARGET_ar71xx_generic_GL-AR300 is not set
 # CONFIG_TARGET_ar71xx_generic_DOMINO is not set
-# CONFIG_TARGET_ar71xx_generic_GL-MIFI is not set
+CONFIG_TARGET_ar71xx_generic_GL-MIFI is not set
 # CONFIG_TARGET_ar71xx_generic_GL-AR300M is not set
 # CONFIG_TARGET_ar71xx_generic_MINIBOXV1 is not set
 # CONFIG_TARGET_ar71xx_generic_HIWIFI_HC6361 is not set

@@ -17,7 +17,7 @@ RUN cd binwalk && ./deps.sh --yes
 RUN cd binwalk && python setup.py install
 RUN echo "BINWALK=binwalk" >> firmware-mod-kit/shared-ng.inc
 
-COPY configs/gl-ar150-defconfig openwrt-cc/.config
+COPY configs/gl-mifi-defconfig openwrt-cc/.config
 RUN touch .upstream_version &&\
     mkdir firmware_images
 
@@ -38,8 +38,8 @@ RUN cd openwrt-cc &&\
 # build firmware
 RUN cd openwrt-cc && make defconfig
 RUN cd openwrt-cc &&\
-    #make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) &&\
-    make V=s &&\
+    make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) &&\
+    #make V=s &&\
     for line in $(find "$top/openwrt-cc/bin" -name "*-sysupgrade.bin"); do \
         cp "$line" "$top/firmware_images/" &&\
         echo " - [*] File ready at - $line"\

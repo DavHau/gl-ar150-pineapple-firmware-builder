@@ -21,13 +21,13 @@ RUN mkdir firmware_images
 
 # extract firmware
 RUN cd firmware-mod-kit &&\
-    ./extract-firmware.sh "$top"/upgrade.bin
+    ./extract-firmware.sh /upgrade.bin
 RUN mkdir openwrt-cc/files &&\
     cp -r firmware-mod-kit/fmk/rootfs/* openwrt-cc/files/ &&\
     rm -rf openwrt-cc/files/lib/modules/* &&\
     rm -rf openwrt-cc/files/sbin/modprobe
 
-# install install_scripts
+# openwrt feeds
 RUN cd openwrt-cc &&\
     ./scripts/feeds update -a &&\
     ./scripts/feeds install -a
@@ -35,10 +35,5 @@ RUN cd openwrt-cc &&\
 # build firmware
 COPY configs/gl-mifi-defconfig openwrt-cc/.config
 RUN cd openwrt-cc && make defconfig
-RUN cd openwrt-cc &&\
-    make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) &&\
-    #make V=s &&\
-    for line in $(find "$top/openwrt-cc/bin" -name "*-sysupgrade.bin"); do \
-        cp "$line" "$top/firmware_images/" &&\
-        echo " - [*] File ready at - $line"\
-    ; done
+
+copy build.sh /build.sh
